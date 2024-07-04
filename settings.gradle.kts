@@ -21,4 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Avia Rails"
 include(":app")
- 
+include(":api")
+include(":data")
+include(":domain")
+include(":di")
