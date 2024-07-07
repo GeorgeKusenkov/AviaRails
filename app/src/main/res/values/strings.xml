@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Avia Rails</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="tickets">Авиабилеты</string>
+    <string name="hotels">Отели</string>
+    <string name="shorter">Короче</string>
+    <string name="subscribes">Подписки</string>
+    <string name="profile">Профиль</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.egasmith.aviarails.ui.home
+package com.egasmith.aviarails.ui.fragments.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
