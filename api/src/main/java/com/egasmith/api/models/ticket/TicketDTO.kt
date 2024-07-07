@@ -1,22 +1,22 @@
 package com.egasmith.api.models.ticket
 
-import com.egasmith.api.models.Price
+import com.egasmith.api.models.PriceDTO
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Ticket(
+data class TicketDTO(
     @SerialName("id") val id: Int,
     @SerialName("badge") val badge: String? = null,
-    @SerialName("price") val price: Price,
+    @SerialName("price") val priceDTO: PriceDTO,
     @SerialName("provider_name") val providerName: String,
     @SerialName("company") val company: String,
-    @SerialName("departure") val departure: FlightDetails,
-    @SerialName("arrival") val arrival: FlightDetails,
+    @SerialName("departure") val departure: FlightDetailsDTO,
+    @SerialName("arrival") val arrival: FlightDetailsDTO,
     @SerialName("has_transfer") val hasTransfer: Boolean,
     @SerialName("has_visa_transfer") val hasVisaTransfer: Boolean,
-    @SerialName("luggage") val luggage: Luggage?,
-    @SerialName("hand_luggage") val handLuggage: HandLuggage,
+    @SerialName("luggage") val luggageDTO: LuggageDTO?,
+    @SerialName("hand_luggage") val handLuggageDTO: HandLuggageDTO,
     @SerialName("is_returnable") val isReturnable: Boolean,
     @SerialName("is_exchangable") val isExchangeable: Boolean
 )

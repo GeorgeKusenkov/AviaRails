@@ -1,9 +1,8 @@
 package com.egasmith.api
 
-import android.content.Context
-import com.egasmith.api.models.offer.OfferResponse
-import com.egasmith.api.models.ticket.TicketResponse
-import com.egasmith.api.models.ticketoffers.TicketOffers
+import com.egasmith.api.models.offer.OfferResponseDTO
+import com.egasmith.api.models.ticket.TicketResponseDTO
+import com.egasmith.api.models.ticketoffers.TicketOffersResponseDTO
 import com.egasmith.api.utils.AssetJsonReader
 import com.egasmith.api.utils.MockInterceptor
 import okhttp3.OkHttpClient
@@ -11,32 +10,34 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
+
 interface AviaRailsApi {
+
+//mock responses
     @GET("tickets")
-    suspend fun getTickets(): TicketResponse
+    suspend fun getTickets(): TicketResponseDTO
 
     @GET("tickets_offers")
-    suspend fun getTicketOffers(): TicketOffers
+    suspend fun getTicketOffers(): TicketOffersResponseDTO
 
     @GET("offers")
-    suspend fun getOffers(): OfferResponse
+    suspend fun getOffers(): OfferResponseDTO
 }
 
-class AviaRailsApiProvider(private val context: Context) {
-    fun provideFilmApi(): AviaRailsApi {
-        val jsonReader = AssetJsonReader(context)
-        val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(MockInterceptor(jsonReader))
-            .build()
+class AviaRailsApiProvider (jsonReader: AssetJsonReader) {
+    private val mockInterceptor = MockInterceptor(jsonReader)
+//    private val aviaRailsApiKeyInterceptor = AviaRailsApiKeyInterceptor(BuildConfig.API_KEY)
 
+    fun provideAviaRailsApi(): AviaRailsApi {
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(mockInterceptor)
+            .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://localhost/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-
         return retrofit.create(AviaRailsApi::class.java)
     }
 }
-
 

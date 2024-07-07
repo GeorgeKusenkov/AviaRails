@@ -4,6 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TicketResponse(
-    @SerialName("tickets") val tickets: List<Ticket>
+data class TicketResponseDTO(
+    @SerialName("tickets") val ticketDTOS: List<TicketDTO>
 )

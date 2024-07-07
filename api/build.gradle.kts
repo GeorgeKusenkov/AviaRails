@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.ksp)
 }
 
@@ -46,15 +47,20 @@ android {
 }
 
 dependencies {
-
     implementation (libs.converter.gson)
     implementation(libs.androidx.core.ktx)
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
+
     implementation(libs.retrofit)
     implementation (libs.retrofit.adapters.result)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.annotation)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation (libs.retrofit.adapters.result)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

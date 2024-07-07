@@ -8,7 +8,7 @@ interface JsonReader {
     fun getJsonFromAssets(fileName: String): String?
 }
 
-class AssetJsonReader(private val context: Context) : JsonReader {
+class AssetJsonReader (private val context: Context) : JsonReader {
     override fun getJsonFromAssets(fileName: String): String? {
         return try {
             context.assets.open(fileName).bufferedReader().use { it.readText() }
