@@ -17,6 +17,7 @@ fun OfferDTO.toDomain(): Offer {
         id = id,
         title = title,
         town = town,
-        price = price.toDomain()
+        price = "от ${price.value} р.",
+        image = null
     )
 }
