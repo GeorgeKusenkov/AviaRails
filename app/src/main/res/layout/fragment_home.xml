@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0C0C0C"
@@ -30,7 +31,7 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textColor="#D9D9D9"
-        android:text="Поиск дешевых \nавиабилетов"
+        android:text="Поиск дешевых\nавиабилетов"
         app:layout_constraintEnd_toStartOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,66 +47,356 @@
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@+id/text_home">
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="18dp"
-            app:cardBackgroundColor="#3E3F43"
-            app:cardCornerRadius="18dp">
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_c2enter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.25" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_c3enter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/innerCardView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="18dp"
+                app:cardBackgroundColor="#3E3F43"
+                app:cardCornerRadius="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/ic_search"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_search"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/start_city"
+                        style="@style/CustomEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Откуда - Москва"
+                        app:layout_constraintBottom_toTopOf="@+id/horizontal_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/horizontal_line"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/horizontal_line"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@android:color/darker_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ic_search"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/end_city"
+                        style="@style/CustomEditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Куда - Турция"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/horizontal_line"
+                        app:layout_constraintTop_toBottomOf="@+id/horizontal_line" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/search_menu_view_group"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="12dp">
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/innerCardView"
+                app:layout_constraintStart_toStartOf="@+id/innerCardView"
+                app:layout_constraintTop_toBottomOf="@+id/innerCardView">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_margin_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_center1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_left_25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.25" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_right_25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.75" />
 
                 <ImageView
-                    android:id="@+id/ic_search"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_search"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:id="@+id/icon_difficult_route"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_difficult_route"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_difficult_Route"
+                    app:layout_constraintStart_toStartOf="@+id/text_difficult_Route"
+                    app:layout_constraintTop_toTopOf="@+id/search_menu_view_group" />
+
+                <TextView
+                    android:id="@+id/text_difficult_Route"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Сложный\nмаршрут"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toStartOf="@+id/guideline_margin_start"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_difficult_route" />
+
+                <ImageView
+                    android:id="@+id/icon_anywhere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_anywhere"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_anywhere"
+                    app:layout_constraintStart_toStartOf="@+id/text_anywhere"
+                    app:layout_constraintTop_toTopOf="@+id/search_menu_view_group"  />
+
+                <TextView
+                    android:id="@+id/text_anywhere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Куда угодно"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_center1"
+                    app:layout_constraintStart_toStartOf="@+id/guideline_left_25"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_anywhere" />
+
+                <ImageView
+                    android:id="@+id/icon_weekends"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_weekends"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_weekends"
+                    app:layout_constraintStart_toStartOf="@+id/text_weekends"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_weekends"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Выходные"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_right_25"
+                    app:layout_constraintStart_toStartOf="@+id/guideline_center1"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_weekends" />
+
+                <ImageView
+                    android:id="@+id/icon_hot_tickets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_hot_tickets"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_hot_tickets"
+                    app:layout_constraintStart_toStartOf="@+id/text_hot_tickets"
+                    app:layout_constraintTop_toTopOf="parent"  />
+
+                <TextView
+                    android:id="@+id/text_hot_tickets"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Горячие\nбилеты"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline_right_25"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_hot_tickets" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/proposed_directions"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="18dp"
+                    app:cardBackgroundColor="#3E3F43"
+                    app:cardCornerRadius="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_hot_tickets">
 
-                <EditText
-                    android:id="@+id/start_city"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:hint="Откуда"
-                    android:textColorHint="#9F9F9F"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/horizontal_line"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/horizontal_line"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="12dp"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp">
 
-                <View
-                    android:id="@+id/horizontal_line"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="16dp"
-                    android:background="@android:color/darker_gray"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ic_search"
-                    app:layout_constraintTop_toTopOf="parent" />
+                        <TextView
+                            android:id="@+id/stambul_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Стамбул"
+                            android:layout_marginStart="8dp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@+id/stambul_img"
+                            app:layout_constraintTop_toTopOf="@+id/stambul_img" />
 
-                <EditText
-                    android:id="@+id/end_city"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:hint="Куда"
-                    android:textColorHint="#9F9F9F"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/horizontal_line"
-                    app:layout_constraintTop_toBottomOf="@+id/horizontal_line" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Популярное наврпавление"
+                            android:textColor="@color/gray4"
+                            app:layout_constraintBottom_toBottomOf="@+id/stambul_img"
+                            app:layout_constraintStart_toStartOf="@+id/stambul_title"
+                            app:layout_constraintTop_toBottomOf="@+id/stambul_title" />
+
+                        <View
+                            android:id="@+id/stambul_line"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/gray4"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/stambul_img"
+                            app:layout_constraintTop_toBottomOf="@+id/stambul_img" />
+
+                        <ImageView
+                            android:id="@+id/stambul_img"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:layout_marginTop="10dp"
+                            android:src="@drawable/img_stambul"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/sochi_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Сочи"
+                            android:layout_marginStart="8dp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@+id/sochi_img"
+                            app:layout_constraintTop_toTopOf="@+id/sochi_img" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Популярное наврпавление"
+                            android:textColor="@color/gray4"
+                            app:layout_constraintBottom_toBottomOf="@+id/sochi_img"
+                            app:layout_constraintStart_toStartOf="@+id/sochi_title"
+                            app:layout_constraintTop_toBottomOf="@+id/sochi_title" />
+
+                        <View
+                            android:id="@+id/sochi_line"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="6dp"
+                            android:background="@color/gray4"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/sochi_img"
+                            app:layout_constraintTop_toBottomOf="@+id/sochi_img" />
+
+                        <ImageView
+                            android:id="@+id/sochi_img"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:layout_marginTop="14dp"
+                            android:src="@drawable/img_sochi"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/stambul_line" />
+
+                        <TextView
+                            android:id="@+id/phucket_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Пхукет"
+                            android:layout_marginStart="8dp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@+id/phucket_img"
+                            app:layout_constraintTop_toTopOf="@+id/phucket_img" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Популярное наврпавление"
+                            android:textColor="@color/gray4"
+                            app:layout_constraintBottom_toBottomOf="@+id/phucket_img"
+                            app:layout_constraintStart_toStartOf="@+id/phucket_title"
+                            app:layout_constraintTop_toBottomOf="@+id/phucket_title" />
+
+
+                        <View
+                            android:id="@+id/phucket_line"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@color/gray4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/phucket_img"
+                            app:layout_constraintTop_toBottomOf="@+id/phucket_img" />
+
+                        <ImageView
+                            android:id="@+id/phucket_img"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:layout_marginTop="14dp"
+                            android:src="@drawable/img_phucket"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/sochi_line" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -138,9 +429,10 @@
         android:id="@+id/loadingProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="80dp"
+        android:indeterminateTint="@color/gray3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/flying" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
