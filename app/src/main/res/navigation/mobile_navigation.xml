@@ -9,7 +9,21 @@
         android:id="@+id/navigation_home"
         android:name="com.egasmith.aviarails.ui.fragments.home.HomeFragment"
         android:label="@string/tickets"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_weekendsFragment"
+            app:destination="@id/weekendsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_anywhereFragment"
+            app:destination="@id/anywhereFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_difficultRoutesFragment"
+            app:destination="@id/difficultRoutesFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_hotTicketsFragment"
+            app:destination="@id/hotTicketsFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/hotels_fragment"
         android:name="com.egasmith.aviarails.ui.fragments.HotelsFragment"
@@ -30,4 +44,31 @@
         android:name="com.egasmith.aviarails.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/searchMenuFragment"
+        android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.SearchMenuFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/anywhereFragment"
+        android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.AnywhereFragment"
+        android:label="fragment_anythere"
+        tools:layout="@layout/fragment_anythere" />
+    <fragment
+        android:id="@+id/difficultRoutesFragment"
+        android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.DifficultRoutesFragment"
+        android:label="fragment_difficult_routes"
+        tools:layout="@layout/fragment_difficult_routes" />
+    <fragment
+        android:id="@+id/hotTicketsFragment"
+        android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.HotTicketsFragment"
+        android:label="fragment_hot_tickets"
+        tools:layout="@layout/fragment_hot_tickets" />
+    <fragment
+        android:id="@+id/weekendsFragment"
+        android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.WeekendsFragment"
+        android:label="fragment_weekends"
+        tools:layout="@layout/fragment_weekends" />
 </navigation>

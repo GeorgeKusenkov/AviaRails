@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.fragments.home.HomeFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_margin_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_center1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left_25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right_25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <ImageView
+        android:id="@+id/icon_difficult_route"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_difficult_route"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/text_difficult_Route"
+        app:layout_constraintStart_toStartOf="@+id/text_difficult_Route"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/difficult_route_icon"/>
+
+    <TextView
+        android:id="@+id/text_difficult_Route"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/difficult_route"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="@+id/guideline_margin_start"
+        app:layout_constraintTop_toBottomOf="@+id/icon_difficult_route" />
+
+    <ImageView
+        android:id="@+id/icon_anywhere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_anywhere"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/text_anywhere"
+        app:layout_constraintStart_toStartOf="@+id/text_anywhere"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/anywhere_icon"/>
+
+    <TextView
+        android:id="@+id/text_anywhere"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/anywhere"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_center1"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left_25"
+        app:layout_constraintTop_toBottomOf="@+id/icon_anywhere" />
+
+    <ImageView
+        android:id="@+id/icon_weekends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_weekends"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/text_weekends"
+        app:layout_constraintStart_toStartOf="@+id/text_weekends"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/weekends_icon"/>
+
+    <TextView
+        android:id="@+id/text_weekends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/weekends"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right_25"
+        app:layout_constraintStart_toStartOf="@+id/guideline_center1"
+        app:layout_constraintTop_toBottomOf="@+id/icon_weekends" />
+
+    <ImageView
+        android:id="@+id/icon_hot_tickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_hot_tickets"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/text_hot_tickets"
+        app:layout_constraintStart_toStartOf="@+id/text_hot_tickets"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/hot_tickets_icon"/>
+
+    <TextView
+        android:id="@+id/text_hot_tickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hot_tickets"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_right_25"
+        app:layout_constraintTop_toBottomOf="@+id/icon_hot_tickets" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/proposed_directions"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="18dp"
+        app:cardBackgroundColor="#3E3F43"
+        app:cardCornerRadius="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_hot_tickets">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp">
+
+            <TextView
+                android:id="@+id/stambul_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stambul"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/stambul_img"
+                app:layout_constraintTop_toTopOf="@+id/stambul_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/popular_route"
+                android:textColor="@color/gray4"
+                app:layout_constraintBottom_toBottomOf="@+id/stambul_img"
+                app:layout_constraintStart_toStartOf="@+id/stambul_title"
+                app:layout_constraintTop_toBottomOf="@+id/stambul_title" />
+
+            <View
+                android:id="@+id/stambul_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/gray4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/stambul_img"
+                app:layout_constraintTop_toBottomOf="@+id/stambul_img" />
+
+            <ImageView
+                android:id="@+id/stambul_img"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/img_stambul"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/stambul_image"/>
+
+            <TextView
+                android:id="@+id/sochi_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sochi"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/sochi_img"
+                app:layout_constraintTop_toTopOf="@+id/sochi_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/popular_route"
+                android:textColor="@color/gray4"
+                app:layout_constraintBottom_toBottomOf="@+id/sochi_img"
+                app:layout_constraintStart_toStartOf="@+id/sochi_title"
+                app:layout_constraintTop_toBottomOf="@+id/sochi_title" />
+
+            <View
+                android:id="@+id/sochi_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/gray4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/sochi_img"
+                app:layout_constraintTop_toBottomOf="@+id/sochi_img" />
+
+            <ImageView
+                android:id="@+id/sochi_img"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/img_sochi"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stambul_line"
+                android:contentDescription="@string/sochi_image"/>
+
+            <TextView
+                android:id="@+id/phuket_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phuket"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/phuket_img"
+                app:layout_constraintTop_toTopOf="@+id/phuket_img" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/popular_route"
+                android:textColor="@color/gray4"
+                app:layout_constraintBottom_toBottomOf="@+id/phuket_img"
+                app:layout_constraintStart_toStartOf="@+id/phuket_title"
+                app:layout_constraintTop_toBottomOf="@+id/phuket_title" />
+
+
+            <View
+                android:id="@+id/phucket_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="12dp"
+                android:background="@color/gray4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/phuket_img"
+                app:layout_constraintTop_toBottomOf="@+id/phuket_img" />
+
+            <ImageView
+                android:id="@+id/phuket_img"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/img_phucket"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sochi_line"
+                android:contentDescription="@string/phucket_image"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

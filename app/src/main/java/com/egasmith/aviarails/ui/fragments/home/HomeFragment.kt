@@ -7,16 +7,15 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.egasmith.aviarails.OffersAdapter
 import com.egasmith.aviarails.R
 import com.egasmith.aviarails.databinding.FragmentHomeBinding
+import com.egasmith.aviarails.ui.fragments.home.searchmenu.SearchMenuFragment
 import com.egasmith.domain.models.offer.Offer
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,19 +36,21 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     private lateinit var cardView: CardView
     private lateinit var endCity: TextInputEditText
     private lateinit var startCity: TextInputEditText
     private lateinit var constraintLayout: ConstraintLayout
-    private lateinit var searchMenu: ConstraintLayout
     private var originalWidth: Int = 0
     private var originalHeight: Int = 0
     private lateinit var innerCardView: CardView
     private var originalInnerHeight: Int = 0
     private var originalInnerMargin: Int = 0
     private var isCardExpanded = false
+
+    private lateinit var searchMenuFragment: SearchMenuFragment
+    private var isSearchMenuVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +59,6 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         return root
     }
 
@@ -67,12 +68,18 @@ class HomeFragment : Fragment() {
         observeOffers()
         homeViewModel.fetchTickets()
 
+
+        homeViewModel.recommendedCity.observe(viewLifecycleOwner) { city ->
+            binding.endCity.setText(city)
+        }
+
+        searchMenuFragment = SearchMenuFragment()
         startCity = binding.startCity
         endCity = binding.endCity
         cardView = binding.cardView
         constraintLayout = binding.constraintLayout
-        searchMenu = binding.searchMenuViewGroup
         innerCardView = binding.innerCardView
+
 
         cardView.post {
             originalWidth = cardView.width
@@ -82,10 +89,28 @@ class HomeFragment : Fragment() {
         }
 
         endCity.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
+            if (hasFocus || !endCity.text.isNullOrEmpty()) {
                 expandCardView()
+                expandCardViewAndShowSearchMenu()
             } else {
                 collapseCardView()
+                collapseCardViewAndHideSearchMenu()
+            }
+        }
+
+        endCity.setOnEditorActionListener { v, actionId, event ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE,
+                EditorInfo.IME_ACTION_GO,
+                EditorInfo.IME_ACTION_NEXT,
+                EditorInfo.IME_ACTION_SEND -> {
+                    // Здесь ваш код для обработки нажатия кнопки подтверждения
+                    // Например:
+                    collapseCardView()
+                    collapseCardViewAndHideSearchMenu()
+                    true // Возвращаем true, чтобы указать, что мы обработали событие
+                }
+                else -> false // Возвращаем false для всех остальных действий
             }
         }
 
@@ -118,8 +143,6 @@ class HomeFragment : Fragment() {
                 params.width = (originalWidth + (constraintLayout.width - originalWidth) * value).toInt()
                 params.height = (originalHeight + (constraintLayout.height - originalHeight) * value).toInt()
                 cardView.layoutParams = params
-                searchMenu.visibility = View.VISIBLE
-                // Оставляем innerCardView без изменений
             }
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
@@ -136,6 +159,34 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun showSearchMenu() {
+        if (childFragmentManager.findFragmentById(R.id.search_menu_container) == null) {
+            childFragmentManager.beginTransaction()
+                .add(R.id.search_menu_container, searchMenuFragment)
+                .commit()
+        }
+        binding.searchMenuContainer.visibility = View.VISIBLE
+    }
+
+    private fun expandCardViewAndShowSearchMenu() {
+        if (!isSearchMenuVisible) {
+            isSearchMenuVisible = true
+            expandCardView()
+            showSearchMenu()
+            binding.searchMenuContainer.visibility = View.VISIBLE
+        }
+    }
+
+    private fun collapseCardViewAndHideSearchMenu() {
+        if (isSearchMenuVisible) {
+            isSearchMenuVisible = false
+            collapseCardView()
+            binding.searchMenuContainer.visibility = View.GONE
+        }
+    }
+
+
+
     private fun collapseCardView() {
         if (!isCardExpanded) return
         isCardExpanded = false
@@ -147,7 +198,8 @@ class HomeFragment : Fragment() {
                 params.width = (originalWidth + (constraintLayout.width - originalWidth) * value).toInt()
                 params.height = (originalHeight + (constraintLayout.height - originalHeight) * value).toInt()
                 cardView.layoutParams = params
-                searchMenu.visibility = View.GONE
+
+    //                searchMenuStub.visibility = View.GONE
                 // Оставляем innerCardView без изменений
             }
             addListener(object : AnimatorListenerAdapter() {
@@ -164,8 +216,10 @@ class HomeFragment : Fragment() {
         }
     }
 
+
+
     private fun containsOnlyCyrillic(input: String): Boolean {
-        return input.matches(Regex("[а-яА-ЯёЁ]+"))
+        return input.matches(Regex("[а-яА-ЯёЁ -]+"))
     }
 
     private fun setupRecyclerView() {
