@@ -11,7 +11,7 @@ import com.egasmith.domain.models.offer.Offer
 class OffersAdapter(private val offers: List<Offer>): RecyclerView.Adapter<OffersAdapter.OfferViewHolder>() {
     class OfferViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image: ImageView = itemView.findViewById(R.id.image)
-        val title: TextView = itemView.findViewById(R.id.title)
+        val title: TextView = itemView.findViewById(R.id.title_tv)
         val town: TextView = itemView.findViewById(R.id.town)
         val price: TextView = itemView.findViewById(R.id.price)
     }

@@ -2,6 +2,7 @@ package com.egasmith.di
 
 
 import android.content.Context
+import android.util.Log
 import com.egasmith.api.AviaRailsApi
 import com.egasmith.api.AviaRailsApiProvider
 import com.egasmith.api.utils.AssetJsonReader
@@ -25,12 +26,14 @@ object AppModule {
     @Provides
     @Singleton
     fun provideAssetJsonReader(@ApplicationContext context: Context): AssetJsonReader {
+        Log.d("AppModule", "Providing AssetJsonReader")
         return AssetJsonReader(context)
     }
 
     @Provides
     @Singleton
     fun provideAviaRailsApi(jsonReader: AssetJsonReader): AviaRailsApi {
+        Log.d("AppModule", "Providing AviaRailsApi")
         return AviaRailsApiProvider(jsonReader).provideAviaRailsApi()
     }
 }

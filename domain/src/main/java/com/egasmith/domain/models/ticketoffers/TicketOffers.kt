@@ -5,6 +5,7 @@ import com.egasmith.domain.models.Price
 data class TicketOffers(
     val id: Int,
     val title: String,
-    val timeRange: List<String>,
-    val price: Price
+    val timeRange: String,
+    val price: String,
+    val color: Int = 0
 )

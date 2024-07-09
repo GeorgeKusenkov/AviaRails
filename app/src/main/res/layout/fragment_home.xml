@@ -143,9 +143,18 @@
                 app:layout_constraintEnd_toEndOf="@+id/innerCardView"
                 app:layout_constraintStart_toStartOf="@+id/innerCardView"
                 app:layout_constraintTop_toBottomOf="@+id/innerCardView"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <FrameLayout
+        android:id="@+id/flight_offer_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/flying"
@@ -170,8 +179,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flying"
         tools:listitem="@layout/item_offer"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/loadingProgressBar"

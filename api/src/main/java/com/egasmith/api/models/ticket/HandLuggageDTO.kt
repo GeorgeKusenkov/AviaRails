@@ -1,10 +1,10 @@
 package com.egasmith.api.models.ticket
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class HandLuggageDTO(
-    @SerialName("has_hand_luggage") val hasHandLuggage: Boolean,
-    @SerialName("size") val size: String?
+    @SerializedName("has_hand_luggage") val hasHandLuggage: Boolean,
+    @SerializedName("size") val size: String?
 )

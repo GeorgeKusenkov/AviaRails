@@ -1,11 +1,11 @@
 package com.egasmith.api.models.ticket
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class FlightDetailsDTO(
-    @SerialName("town") val town: String,
-    @SerialName("date") val date: String,
-    @SerialName("airport") val airport: String
+    @SerializedName("town") val town: String,
+    @SerializedName("date") val date: String,
+    @SerializedName("airport") val airport: String
 )

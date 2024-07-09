@@ -1,5 +1,6 @@
 package com.egasmith.data
 
+import android.util.Log
 import com.egasmith.api.AviaRailsApi
 import com.egasmith.data.mapers.toDomain
 import com.egasmith.domain.ApiResult
@@ -26,9 +27,17 @@ class TicketRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getTicketOffers(): Flow<ApiResult<TicketOffersResponse>> = flow {
+        Log.d("showOffers1", "2 Fetching ticket offers from API")
+
         val apiResult = ApiResult.safeApiCall { aviaRailsApi.getTicketOffers() }
+        Log.d("showOffers1", "2 apiResult: $apiResult")
+
         val domainResult = when (apiResult) {
-            is ApiResult.Success -> ApiResult.Success(apiResult.data.toDomain())
+            is ApiResult.Success -> {
+                val response = apiResult.data.toDomain()
+                Log.d("showOffers1", "Domain result: $response")
+                ApiResult.Success(response)
+            }
             is ApiResult.Failure -> apiResult
         }
         emit(domainResult)

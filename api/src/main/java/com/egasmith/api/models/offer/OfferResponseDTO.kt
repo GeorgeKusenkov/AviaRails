@@ -1,9 +1,9 @@
 package com.egasmith.api.models.offer
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class OfferResponseDTO(
-    @SerialName("offers") val offers: List<OfferDTO>
+    @SerializedName("offers") val offers: List<OfferDTO>
 )

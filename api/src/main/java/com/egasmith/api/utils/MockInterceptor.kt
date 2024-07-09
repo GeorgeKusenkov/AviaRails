@@ -15,15 +15,16 @@ class MockInterceptor @Inject constructor(private val jsonReader: AssetJsonReade
         val request = chain.request()
         val uri = request.url.toUri().toString()
 
-        val responseString = when {
-            uri.endsWith("offers") -> { jsonReader.getJsonFromAssets("offers.json") }
-            uri.endsWith("tickets") -> jsonReader.getJsonFromAssets("tickets.json")
-            uri.endsWith("tickets_offers") -> jsonReader.getJsonFromAssets("tickets_offers.json")
+        val responseString = when (uri) {
+            "https://api.aviarails.dev/v1/tickets_offers" -> jsonReader.getJsonFromAssets("tickets_offers.json")
+            "https://api.aviarails.dev/v1/tickets" -> jsonReader.getJsonFromAssets("tickets.json")
+            "https://api.aviarails.dev/v1/offers" -> jsonReader.getJsonFromAssets("offers.json")
             else -> null
         }
 
         return if (responseString != null) {
             Log.d("MockInterceptor", "Returning mock response for: $uri")
+            Log.d("MockInterceptor", "responseString: $responseString")
             Response.Builder()
                 .request(request)
                 .code(200)

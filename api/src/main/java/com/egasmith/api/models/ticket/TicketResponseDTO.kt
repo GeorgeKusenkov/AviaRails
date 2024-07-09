@@ -1,9 +1,9 @@
 package com.egasmith.api.models.ticket
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class TicketResponseDTO(
-    @SerialName("tickets") val ticketDTOS: List<TicketDTO>
+    @SerializedName("tickets") val ticketDTOS: List<TicketDTO>
 )

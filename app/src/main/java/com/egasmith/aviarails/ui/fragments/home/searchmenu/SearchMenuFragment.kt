@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.egasmith.aviarails.R
 import com.egasmith.aviarails.databinding.FragmentSearchMenuBinding
@@ -39,7 +37,7 @@ class SearchMenuFragment : Fragment() {
             homeViewModel.setRecommendedCity("Пхукет")
         }
 
-        binding.stambulImg.setOnClickListener{
+        binding.stambulImage.setOnClickListener{
             homeViewModel.setRecommendedCity("Стамбул")
         }
 

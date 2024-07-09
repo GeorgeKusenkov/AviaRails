@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.egasmith.aviarails.OffersAdapter
 import com.egasmith.aviarails.R
 import com.egasmith.aviarails.databinding.FragmentHomeBinding
+import com.egasmith.aviarails.ui.fragments.home.flightoffermenu.FlightOfferFragment
 import com.egasmith.aviarails.ui.fragments.home.searchmenu.SearchMenuFragment
 import com.egasmith.domain.models.offer.Offer
 import com.google.android.material.textfield.TextInputEditText
@@ -68,7 +69,6 @@ class HomeFragment : Fragment() {
         observeOffers()
         homeViewModel.fetchTickets()
 
-
         homeViewModel.recommendedCity.observe(viewLifecycleOwner) { city ->
             binding.endCity.setText(city)
         }
@@ -79,7 +79,6 @@ class HomeFragment : Fragment() {
         cardView = binding.cardView
         constraintLayout = binding.constraintLayout
         innerCardView = binding.innerCardView
-
 
         cardView.post {
             originalWidth = cardView.width
@@ -104,13 +103,14 @@ class HomeFragment : Fragment() {
                 EditorInfo.IME_ACTION_GO,
                 EditorInfo.IME_ACTION_NEXT,
                 EditorInfo.IME_ACTION_SEND -> {
-                    // Здесь ваш код для обработки нажатия кнопки подтверждения
-                    // Например:
                     collapseCardView()
                     collapseCardViewAndHideSearchMenu()
-                    true // Возвращаем true, чтобы указать, что мы обработали событие
+                    showFlightOfferFragment()
+                    binding.flying.visibility = View.GONE
+                    binding.offersRecyclerview.visibility = View.GONE
+                    true
                 }
-                else -> false // Возвращаем false для всех остальных действий
+                else -> false
             }
         }
 
@@ -132,6 +132,18 @@ class HomeFragment : Fragment() {
         endCity.addTextChangedListener(cyrillicTextWatcher)
     }
 
+
+    private fun showFlightOfferFragment() {
+        val flightOfferFragment = FlightOfferFragment()
+        childFragmentManager.beginTransaction()
+            .add(R.id.flight_offer_container, flightOfferFragment)
+            .addToBackStack(null)
+            .commit()
+
+        binding.flightOfferContainer.visibility = View.VISIBLE
+    }
+
+
     private fun expandCardView() {
         if (isCardExpanded) return
         isCardExpanded = true
@@ -152,7 +164,6 @@ class HomeFragment : Fragment() {
                     cardView.layoutParams = params
                     cardView.bringToFront()
 
-                    // Не меняем положение innerCardView
                 }
             })
             start()
@@ -198,9 +209,6 @@ class HomeFragment : Fragment() {
                 params.width = (originalWidth + (constraintLayout.width - originalWidth) * value).toInt()
                 params.height = (originalHeight + (constraintLayout.height - originalHeight) * value).toInt()
                 cardView.layoutParams = params
-
-    //                searchMenuStub.visibility = View.GONE
-                // Оставляем innerCardView без изменений
             }
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
@@ -208,8 +216,6 @@ class HomeFragment : Fragment() {
                     params.width = originalWidth
                     params.height = originalHeight
                     cardView.layoutParams = params
-
-                    // Не меняем положение innerCardView
                 }
             })
             start()
@@ -262,7 +268,6 @@ class HomeFragment : Fragment() {
     private fun showError(message: String) {
         binding.loadingProgressBar.visibility = View.GONE
         binding.offersRecyclerview.visibility = View.GONE
-        // Здесь вы можете показать сообщение об ошибке, например, используя Toast или Snackbar
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 

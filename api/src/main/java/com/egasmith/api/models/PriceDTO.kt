@@ -1,9 +1,9 @@
 package com.egasmith.api.models
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class PriceDTO(
-    @SerialName("value") val value: Int
+    @SerializedName("value") val value: Int
 )
