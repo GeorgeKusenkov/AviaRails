@@ -6,4 +6,24 @@
     <string name="subscribes">Подписки</string>
     <string name="profile">Профиль</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="seach_cheap_tickets">Поиск дешевых\nавиабилетов</string>
+    <string name="popular_route">Популярное наврпавление</string>
+    <string name="to_turkey">Куда - Турция</string>
+    <string name="from_moscow">Откуда - Москва</string>
+    <string name="musically_fly">Музыкально отлететь</string>
+    <string name="search_icon">search icon</string>
+    <string name="anywhere_icon">anywhere icon</string>
+    <string name="difficult_route_icon">difficult route icon</string>
+    <string name="hot_tickets_icon">hot tickets icon</string>
+    <string name="phucket_image">phucket image</string>
+    <string name="sochi_image">sochi image</string>
+    <string name="phuket">Пхукет</string>
+    <string name="stambul_image">stambul image</string>
+    <string name="sochi">Сочи</string>
+    <string name="weekends_icon">weekends icon</string>
+    <string name="anywhere">Куда угодно</string>
+    <string name="stambul">Стамбул</string>
+    <string name="difficult_route">Сложный\nмаршрут</string>
+    <string name="hot_tickets">Горячие\nбилеты</string>
+    <string name="weekends">Выходные</string>
 </resources>
