@@ -70,11 +70,20 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+
+        binding.icX.setOnClickListener {
+            homeViewModel.cleanEndCity()
+        }
+
         setupRecyclerView()
+
         setupViewStateHandler()
         observeOffers()
         observeRecommendedCity()
         homeViewModel.fetchOffers()
+
+
+
     }
 
     private fun setupViews() = with(binding) {
@@ -104,11 +113,30 @@ class HomeFragment : Fragment() {
         if (hasFocus || !binding.endCity.text.isNullOrEmpty()) {
             cardAnimator.expandCard()
             showSearchMenu()
+            updateImageViewAttributes()
         } else {
             cardAnimator.collapseCard()
             hideSearchMenu()
         }
         textInputManager.updateImeOptions()
+    }
+
+    private fun updateImageViewAttributes() {
+        // Update attributes for ic_search
+        val icSearchLayoutParams = binding.icSearch.layoutParams as ConstraintLayout.LayoutParams
+        icSearchLayoutParams.bottomMargin = 10.dpToPx()
+        icSearchLayoutParams.topToTop = ConstraintLayout.LayoutParams.UNSET
+        binding.icSearch.layoutParams = icSearchLayoutParams
+
+        // Set ic_planer visibility to VISIBLE
+        binding.icPlaner.visibility = View.VISIBLE
+
+        // Set ic_x visibility to VISIBLE
+        binding.icX.visibility = View.VISIBLE
+    }
+
+    private fun Int.dpToPx(): Int {
+        return (this * resources.displayMetrics.density).toInt()
     }
 
     private fun submitCities() {

@@ -1,6 +1,7 @@
 package com.egasmith.aviarails.ui.features
 
 import android.animation.ValueAnimator
+import android.view.View
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 
@@ -32,8 +33,11 @@ class CardAnimator(private val cardView: CardView, private val constraintLayout:
 
     private fun updateCardSize(progress: Float) {
         val params = cardView.layoutParams as ConstraintLayout.LayoutParams
-        params.width = (originalSize.first + (constraintLayout.width - originalSize.first) * progress).toInt()
-        params.height = (originalSize.second + (constraintLayout.height - originalSize.second) * progress).toInt()
+        val newWidth = (originalSize.first + (constraintLayout.width - originalSize.first) * progress).toInt()
+        val newHeight = (originalSize.second + (constraintLayout.height - originalSize.second) * progress).toInt()
+
+        params.width = newWidth
+        params.height = newHeight
         cardView.layoutParams = params
     }
 }

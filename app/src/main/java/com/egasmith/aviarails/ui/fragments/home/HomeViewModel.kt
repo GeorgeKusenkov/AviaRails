@@ -93,6 +93,10 @@ class HomeViewModel @Inject constructor(
     fun setRecommendedCity(city: String) {
         _recommendedCity.value = city
     }
+
+    fun cleanEndCity() {
+        _recommendedCity.value = ""
+    }
 }
 
 private fun addImagesToOffers(offers: List<Offer>): List<Offer> {
