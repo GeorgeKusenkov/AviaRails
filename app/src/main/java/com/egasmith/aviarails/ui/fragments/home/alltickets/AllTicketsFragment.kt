@@ -13,8 +13,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.egasmith.aviarails.databinding.FragmentAllTicketsBinding
+import com.egasmith.aviarails.ui.features.ViewStateHandler
 import com.egasmith.aviarails.ui.fragments.home.HomeViewModel
 import com.egasmith.aviarails.ui.fragments.home.TicketsViewState
+import com.egasmith.domain.models.offer.Offer
+import com.egasmith.domain.models.ticket.Ticket
 import com.egasmith.domain.models.uiticket.UiTicket
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -24,6 +27,8 @@ class AllTicketsFragment : Fragment() {
     private var _binding: FragmentAllTicketsBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by activityViewModels()
+
+    private lateinit var viewStateHandler: ViewStateHandler<UiTicket>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +43,7 @@ class AllTicketsFragment : Fragment() {
         setupRecyclerView()
         homeViewModel.fetchTicketsOffers()
         observeTickets()
+        setupViewStateHandler()
     }
 
     private fun setupRecyclerView() {
@@ -51,33 +57,26 @@ class AllTicketsFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.tickets.collect { state ->
                     when (state) {
-                        is TicketsViewState.Loading -> showLoading()
+                        is TicketsViewState.Loading -> viewStateHandler.showLoading()
                         is TicketsViewState.Success -> {
-                            showOffers(state.ticketInfo.ticket)
+                            viewStateHandler.showData(
+                                state.ticketInfo.ticket,
+                                AllTicketsAdapter(state.ticketInfo.ticket)
+                            )
                         }
-
-                        is TicketsViewState.Error -> showError(state.message)
+                        is TicketsViewState.Error -> viewStateHandler.showError(state.message)
                     }
                 }
             }
         }
     }
 
-    private fun showOffers(allTickets: List<UiTicket>) {
-        binding.loadingProgressBar.visibility = View.GONE
-        binding.allTicketsRecyclerview.visibility = View.VISIBLE
-        binding.allTicketsRecyclerview.adapter = AllTicketsAdapter(allTickets)
-    }
-
-    private fun showLoading() {
-        binding.loadingProgressBar.visibility = View.VISIBLE
-        binding.allTicketsRecyclerview.visibility = View.GONE
-    }
-
-    private fun showError(message: String) {
-        binding.loadingProgressBar.visibility = View.GONE
-        binding.allTicketsRecyclerview.visibility = View.GONE
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    private fun setupViewStateHandler() {
+        viewStateHandler = ViewStateHandler(
+            binding.loadingProgressBar,
+            binding.allTicketsRecyclerview,
+            requireContext()
+        )
     }
 
     override fun onDestroyView() {

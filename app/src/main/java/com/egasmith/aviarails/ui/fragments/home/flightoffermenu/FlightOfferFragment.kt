@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.egasmith.aviarails.R
 import com.egasmith.aviarails.databinding.FragmentFlightOfferBinding
+import com.egasmith.aviarails.ui.features.ViewStateHandler
 import com.egasmith.aviarails.ui.fragments.home.HomeViewModel
 import com.egasmith.aviarails.ui.fragments.home.TicketOffersViewState
 import com.egasmith.domain.models.ticketoffers.TicketOffers
@@ -26,6 +26,7 @@ class FlightOfferFragment : Fragment() {
     private var _binding: FragmentFlightOfferBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by activityViewModels()
+    private lateinit var viewStateHandler: ViewStateHandler<TicketOffers>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,19 +38,31 @@ class FlightOfferFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        homeViewModel.fetchTicketsOffers()
         setupRecyclerView()
+        setOnClickListeners()
+        setupViewStateHandler()
+        observeOffers()
+    }
 
+    private fun setOnClickListeners() {
         binding.allTicketsButton.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_allTicketsFragment)
         }
-
-        homeViewModel.fetchTicketsOffers()
-        observeOffers()
     }
 
     private fun setupRecyclerView() {
         val recyclerView = binding.flyingRecyclerview
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    }
+
+    private fun setupViewStateHandler() {
+        viewStateHandler = ViewStateHandler(
+            binding.loadingProgressBar,
+            binding.flyingRecyclerview,
+            requireContext()
+        )
     }
 
     private fun observeOffers() {
@@ -57,33 +70,19 @@ class FlightOfferFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.ticketOffers.collect { state ->
                     when (state) {
-                        is TicketOffersViewState.Loading -> showLoading()
+                        is TicketOffersViewState.Loading -> viewStateHandler.showLoading()
                         is TicketOffersViewState.Success -> {
                             Log.d("showOffers", "${state.ticketOffersInfo.ticketsOffers}")
-                            showOffers(state.ticketOffersInfo.ticketsOffers)
+                            viewStateHandler.showData(
+                                state.ticketOffersInfo.ticketsOffers,
+                                FlightOfferAdapter(state.ticketOffersInfo.ticketsOffers)
+                            )
                         }
-                        is TicketOffersViewState.Error -> showError(state.message)
+                        is TicketOffersViewState.Error -> viewStateHandler.showError(state.message)
                     }
                 }
             }
         }
-    }
-
-    private fun showOffers(flightOffers: List<TicketOffers>) {
-        binding.loadingProgressBar.visibility = View.GONE
-        binding.flyingRecyclerview.visibility = View.VISIBLE
-        binding.flyingRecyclerview.adapter = FlightOfferAdapter(flightOffers)
-    }
-
-    private fun showLoading() {
-        binding.loadingProgressBar.visibility = View.VISIBLE
-        binding.flyingRecyclerview.visibility = View.GONE
-    }
-
-    private fun showError(message: String) {
-        binding.loadingProgressBar.visibility = View.GONE
-        binding.flyingRecyclerview.visibility = View.GONE
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

@@ -30,6 +30,7 @@ import com.egasmith.aviarails.R
 import com.egasmith.aviarails.databinding.FragmentHomeBinding
 import com.egasmith.aviarails.ui.features.CardAnimator
 import com.egasmith.aviarails.ui.features.TextInputManager
+import com.egasmith.aviarails.ui.features.ViewStateHandler
 import com.egasmith.aviarails.ui.fragments.home.flightoffermenu.FlightOfferFragment
 import com.egasmith.aviarails.ui.fragments.home.searchmenu.SearchMenuFragment
 import com.egasmith.domain.models.offer.Offer
@@ -44,6 +45,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by activityViewModels()
     private var isSearchMenuVisible = false
+
+    private lateinit var viewStateHandler: ViewStateHandler<Offer>
 
     private val cardAnimator by lazy {
         CardAnimator(binding.cardView, binding.constraintLayout)
@@ -68,6 +71,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         setupRecyclerView()
+        setupViewStateHandler()
         observeOffers()
         observeRecommendedCity()
         homeViewModel.fetchOffers()
@@ -156,14 +160,22 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setupViewStateHandler() {
+        viewStateHandler = ViewStateHandler(
+            binding.loadingProgressBar,
+            binding.offersRecyclerview,
+            requireContext()
+        )
+    }
+
     private fun observeOffers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.offers.collect { state ->
                     when (state) {
-                        is OffersViewState.Loading -> showLoading()
-                        is OffersViewState.Success -> showOffers(state.offerInfo.offers)
-                        is OffersViewState.Error -> showError(state.message)
+                        is OffersViewState.Loading -> viewStateHandler.showLoading()
+                        is OffersViewState.Success -> viewStateHandler.showData(state.offerInfo.offers, OffersAdapter(state.offerInfo.offers))
+                        is OffersViewState.Error -> viewStateHandler.showError(state.message)
                     }
                 }
             }
@@ -174,23 +186,6 @@ class HomeFragment : Fragment() {
         homeViewModel.recommendedCity.observe(viewLifecycleOwner) { city ->
             binding.endCity.setText(city)
         }
-    }
-
-    private fun showLoading() {
-        binding.loadingProgressBar.visibility = View.VISIBLE
-        binding.offersRecyclerview.visibility = View.GONE
-    }
-
-    private fun showOffers(offers: List<Offer>) {
-        binding.loadingProgressBar.visibility = View.GONE
-        binding.offersRecyclerview.visibility = View.VISIBLE
-        binding.offersRecyclerview.adapter = OffersAdapter(offers)
-    }
-
-    private fun showError(message: String) {
-        binding.loadingProgressBar.visibility = View.GONE
-        binding.offersRecyclerview.visibility = View.GONE
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     class SpaceItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
