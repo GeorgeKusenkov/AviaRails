@@ -11,6 +11,7 @@ import com.egasmith.domain.models.offer.OfferResponse
 import com.egasmith.domain.models.ticket.TicketResponse
 import com.egasmith.domain.models.ticketoffers.TicketOffers
 import com.egasmith.domain.models.ticketoffers.TicketOffersResponse
+import com.egasmith.domain.models.uiticket.UITicketResponse
 import com.egasmith.domain.usecases.GetOffersUseCase
 import com.egasmith.domain.usecases.GetTicketOffersUseCase
 import com.egasmith.domain.usecases.GetTicketsUseCase
@@ -56,7 +57,7 @@ class HomeViewModel @Inject constructor(
         getTicketUseCase().collect { result ->
             _tickets.value = result.fold(
                 onSuccess = {response ->
-                    TicketsViewState.Success(TicketResponse(response.ticket))
+                    TicketsViewState.Success(UITicketResponse(response))
                 },
                 onFailure = { TicketsViewState.Error(it.message ?: "Unknown error") }
             )
@@ -78,15 +79,10 @@ class HomeViewModel @Inject constructor(
 
     fun fetchTicketsOffers() = viewModelScope.launch {
         _ticketOffers.value = TicketOffersViewState.Loading
-
-        Log.d("showOffers3", "1: ${_ticketOffers.value}")
-
         getTicketOffersUseCase().collect { result ->
             _ticketOffers.value = result.fold(
                 onSuccess = { response ->
-                    Log.d("showOffers3", "2: $response")
                     val offersWithImages = addCirclesToOffersTickets(response.ticketsOffers)
-                    Log.d("showOffers3", "3: $offersWithImages")
                     TicketOffersViewState.Success(TicketOffersResponse(offersWithImages))
                 },
                 onFailure = { TicketOffersViewState.Error(it.message ?: "Unknown error") }
@@ -128,7 +124,7 @@ private fun addCirclesToOffersTickets(ticketOffers: List<TicketOffers>): List<Ti
 sealed interface TicketsViewState {
     data object Loading : TicketsViewState
     data class Error(val message: String) : TicketsViewState
-    data class Success(val offerInfo: TicketResponse) : TicketsViewState
+    data class Success(val ticketInfo: UITicketResponse) : TicketsViewState
 }
 
 sealed interface OffersViewState {
@@ -140,5 +136,5 @@ sealed interface OffersViewState {
 sealed interface TicketOffersViewState {
     data object Loading : TicketOffersViewState
     data class Error(val message: String) : TicketOffersViewState
-    data class Success(val offerInfo: TicketOffersResponse) : TicketOffersViewState
+    data class Success(val ticketOffersInfo: TicketOffersResponse) : TicketOffersViewState
 }

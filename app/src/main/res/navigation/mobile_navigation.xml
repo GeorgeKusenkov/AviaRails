@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_navigation_home_to_hotTicketsFragment"
             app:destination="@id/hotTicketsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_allTicketsFragment"
+            app:destination="@id/allTicketsFragment" />
     </fragment>
 
     <fragment
@@ -71,4 +74,14 @@
         android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.WeekendsFragment"
         android:label="fragment_weekends"
         tools:layout="@layout/fragment_weekends" />
+    <fragment
+        android:id="@+id/allTicketsFragment"
+        android:name="com.egasmith.aviarails.ui.fragments.home.alltickets.AllTicketsFragment"
+        android:label="fragment_all_tickets"
+        tools:layout="@layout/fragment_all_tickets" />
+    <fragment
+        android:id="@+id/flightOfferFragment"
+        android:name="com.egasmith.aviarails.ui.fragments.home.flightoffermenu.FlightOfferFragment"
+        android:label="fragment_flight_offer"
+        tools:layout="@layout/fragment_flight_offer" />
 </navigation>

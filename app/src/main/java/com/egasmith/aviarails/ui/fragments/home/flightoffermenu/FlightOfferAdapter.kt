@@ -1,14 +1,10 @@
 package com.egasmith.aviarails.ui.fragments.home.flightoffermenu
 
-import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.egasmith.aviarails.R
 import com.egasmith.aviarails.databinding.ItemFlyingOptionTicketsInfoBinding
 import com.egasmith.domain.models.ticketoffers.TicketOffers
 

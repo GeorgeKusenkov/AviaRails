@@ -7,6 +7,8 @@ import com.egasmith.api.AviaRailsApi
 import com.egasmith.api.AviaRailsApiProvider
 import com.egasmith.api.utils.AssetJsonReader
 import com.egasmith.api.utils.JsonReader
+import com.egasmith.domain.features.DefaultTicketsDateTimeFormatter
+import com.egasmith.domain.features.TicketsDateTimeFormatter
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -36,4 +38,11 @@ object AppModule {
         Log.d("AppModule", "Providing AviaRailsApi")
         return AviaRailsApiProvider(jsonReader).provideAviaRailsApi()
     }
+
+    @Provides
+    @Singleton
+    fun provideTicketsDateTimeFormatter(): TicketsDateTimeFormatter {
+        return DefaultTicketsDateTimeFormatter()
+    }
+
 }

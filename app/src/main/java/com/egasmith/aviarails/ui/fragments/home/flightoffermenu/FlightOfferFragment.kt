@@ -11,7 +11,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.egasmith.aviarails.R
 import com.egasmith.aviarails.databinding.FragmentFlightOfferBinding
 import com.egasmith.aviarails.ui.fragments.home.HomeViewModel
 import com.egasmith.aviarails.ui.fragments.home.TicketOffersViewState
@@ -38,7 +40,7 @@ class FlightOfferFragment : Fragment() {
         setupRecyclerView()
 
         binding.allTicketsButton.setOnClickListener {
-
+            findNavController().navigate(R.id.action_navigation_home_to_allTicketsFragment)
         }
 
         homeViewModel.fetchTicketsOffers()
@@ -50,7 +52,6 @@ class FlightOfferFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 
-
     private fun observeOffers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -58,8 +59,8 @@ class FlightOfferFragment : Fragment() {
                     when (state) {
                         is TicketOffersViewState.Loading -> showLoading()
                         is TicketOffersViewState.Success -> {
-                            Log.d("showOffers", "${state.offerInfo.ticketsOffers}")
-                            showOffers(state.offerInfo.ticketsOffers)
+                            Log.d("showOffers", "${state.ticketOffersInfo.ticketsOffers}")
+                            showOffers(state.ticketOffersInfo.ticketsOffers)
                         }
                         is TicketOffersViewState.Error -> showError(state.message)
                     }

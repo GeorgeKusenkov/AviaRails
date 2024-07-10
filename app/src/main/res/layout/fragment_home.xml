@@ -101,11 +101,12 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/start_city"
+                        android:inputType = "text"
                         style="@style/CustomEditText"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:hint="@string/from_moscow"
-                        android:inputType = "text"
+
                         app:layout_constraintBottom_toTopOf="@+id/horizontal_line"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/horizontal_line"/>
@@ -120,14 +121,15 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/ic_search"
                         app:layout_constraintTop_toTopOf="parent" />
+<!--                    android:inputType = "text"-->
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/end_city"
+                        android:inputType = "text"
                         style="@style/CustomEditText"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:hint="@string/to_turkey"
-                        android:inputType = "text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/horizontal_line"
                         app:layout_constraintTop_toBottomOf="@+id/horizontal_line" />

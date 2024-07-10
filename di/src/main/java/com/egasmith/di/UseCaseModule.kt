@@ -1,6 +1,7 @@
 package com.egasmith.di
 
 import com.egasmith.domain.TicketRepository
+import com.egasmith.domain.features.TicketsDateTimeFormatter
 import com.egasmith.domain.usecases.GetOffersUseCase
 import com.egasmith.domain.usecases.GetTicketOffersUseCase
 import com.egasmith.domain.usecases.GetTicketsUseCase
@@ -14,8 +15,11 @@ import dagger.hilt.components.SingletonComponent
 object UseCaseModule {
 
     @Provides
-    fun provideGetTicketsUseCase(repository: TicketRepository): GetTicketsUseCase {
-        return GetTicketsUseCase(repository)
+    fun provideGetTicketsUseCase(
+        repository: TicketRepository,
+        ticketsDateTimeFormatter: TicketsDateTimeFormatter
+    ): GetTicketsUseCase {
+        return GetTicketsUseCase(repository, ticketsDateTimeFormatter)
     }
 
     @Provides
