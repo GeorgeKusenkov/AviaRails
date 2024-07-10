@@ -33,7 +33,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
-        android:text="DIE ANANFN"
+        tools:text ="DIE ANANFN"
         app:layout_constraintStart_toStartOf="@+id/cardview"
         app:layout_constraintTop_toBottomOf="@id/cardview" />
 
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="DIE ANANFN"
+        tools:text ="DIE ANANFN"
         android:textColor="#FFFFFF"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/title_tv"
@@ -63,7 +63,7 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="от 22.0000"
+        tools:text ="от 22.0000"
         android:textSize="16sp"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/icon"

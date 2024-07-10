@@ -31,7 +31,7 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textColor="#D9D9D9"
-        android:text="@string/seach_cheap_tickets"
+        tools:text ="@string/seach_cheap_tickets"
         app:layout_constraintEnd_toStartOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toTopOf="parent" />
@@ -161,7 +161,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="@string/musically_fly"
+        tools:text ="@string/musically_fly"
         android:textSize="24sp"
         android:textColor="#D9D9D9"
         app:layout_constraintEnd_toStartOf="@id/guideline_end"

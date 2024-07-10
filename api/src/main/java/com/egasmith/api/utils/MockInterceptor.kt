@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MockInterceptor @Inject constructor(private val jsonReader: AssetJsonReader) : Interceptor {
+class MockInterceptor @Inject constructor(private val jsonReader: AssetJsonReader): Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val uri = request.url.toUri().toString()

@@ -7,16 +7,16 @@ import com.egasmith.domain.models.ticketoffers.TicketOffers
 
 fun TicketOffersResponseDTO.toDomain(): TicketOffersResponse {
     return TicketOffersResponse(
-        ticketsOffers = ticketsOffers?.map { it.toDomain() } ?: emptyList()
+        ticketsOffers = ticketsOffers.map { it.toDomain() }
     )
 }
 
 fun TicketOffersDTO.toDomain(): TicketOffers {
     return TicketOffers(
-        id = id ?: 666,
-        title = title ?: "",
-        timeRange = timeRange?.joinToString(" ") ?: "",
-        price = "${price?.value ?: "0"} '20BD'",
+        id = id,
+        title = title,
+        timeRange = timeRange.joinToString(" "),
+        price = "${price.value} ₽",
         color = 0
     )
 }

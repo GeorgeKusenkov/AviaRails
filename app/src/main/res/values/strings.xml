@@ -26,4 +26,11 @@
     <string name="difficult_route">Сложный\nмаршрут</string>
     <string name="hot_tickets">Горячие\nбилеты</string>
     <string name="weekends">Выходные</string>
+    <string name="back_button">back button</string>
+    <string name="flying_status">flying_status</string>
+    <string name="to_price">to price</string>
+    <string name="add_travel">add travel</string>
+    <string name="user_icon">user icon</string>
+    <string name="settings_icon">settings_icon</string>
+    <string name="bell_icon">bell icon</string>
 </resources>

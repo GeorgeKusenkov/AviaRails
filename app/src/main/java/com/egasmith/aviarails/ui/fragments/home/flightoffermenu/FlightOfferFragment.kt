@@ -12,13 +12,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.egasmith.aviarails.OffersAdapter
 import com.egasmith.aviarails.databinding.FragmentFlightOfferBinding
-import com.egasmith.aviarails.ui.fragments.home.HomeFragment.SpaceItemDecoration
 import com.egasmith.aviarails.ui.fragments.home.HomeViewModel
 import com.egasmith.aviarails.ui.fragments.home.TicketOffersViewState
-import com.egasmith.aviarails.ui.fragments.home.TicketsViewState
-import com.egasmith.domain.models.offer.Offer
 import com.egasmith.domain.models.ticketoffers.TicketOffers
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -40,7 +36,11 @@ class FlightOfferFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-//        binding.flyingRecyclerview.adapter = FlightOffersAdapter(flightOffers)
+
+        binding.allTicketsButton.setOnClickListener {
+
+        }
+
         homeViewModel.fetchTicketsOffers()
         observeOffers()
     }
@@ -71,7 +71,7 @@ class FlightOfferFragment : Fragment() {
     private fun showOffers(flightOffers: List<TicketOffers>) {
         binding.loadingProgressBar.visibility = View.GONE
         binding.flyingRecyclerview.visibility = View.VISIBLE
-//        binding.flyingRecyclerview.adapter = FlightOffersAdapter(flightOffers)
+        binding.flyingRecyclerview.adapter = FlightOfferAdapter(flightOffers)
     }
 
     private fun showLoading() {

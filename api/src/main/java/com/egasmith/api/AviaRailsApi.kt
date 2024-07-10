@@ -13,7 +13,6 @@ import retrofit2.http.GET
 
 interface AviaRailsApi {
 
-//mock responses
     @GET("tickets")
     suspend fun getTickets(): TicketResponseDTO
 

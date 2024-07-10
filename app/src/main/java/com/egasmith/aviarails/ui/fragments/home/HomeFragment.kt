@@ -16,7 +16,6 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -67,7 +66,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeOffers()
-        homeViewModel.fetchTickets()
+        homeViewModel.fetchOffers()
 
         homeViewModel.recommendedCity.observe(viewLifecycleOwner) { city ->
             binding.endCity.setText(city)
@@ -245,9 +244,9 @@ class HomeFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.offers.collect { state ->
                     when (state) {
-                        is TicketsViewState.Loading -> showLoading()
-                        is TicketsViewState.Success -> showOffers(state.offerInfo.offers)
-                        is TicketsViewState.Error -> showError(state.message)
+                        is OffersViewState.Loading -> showLoading()
+                        is OffersViewState.Success -> showOffers(state.offerInfo.offers)
+                        is OffersViewState.Error -> showError(state.message)
                     }
                 }
             }

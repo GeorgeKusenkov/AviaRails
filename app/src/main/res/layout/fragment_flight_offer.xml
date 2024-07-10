@@ -11,9 +11,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:scrollbars="none"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -25,50 +25,47 @@
                 android:layout_height="1dp" />
 
             <androidx.cardview.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/label_height"
                 android:layout_marginStart="@dimen/label_margin_start"
-                android:layout_marginEnd="@dimen/label_margin_end"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/label_margin_end"
                 app:cardBackgroundColor="@color/gray3"
                 app:cardCornerRadius="35dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
                     android:orientation="horizontal"
                     android:paddingStart="6dp"
-                    android:paddingEnd="6dp"
-                    android:layout_gravity="center|center_horizontal">
+                    android:paddingEnd="6dp">
 
                     <ImageView
                         android:id="@+id/back_image"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:layout_gravity="center"
                         android:layout_marginEnd="4dp"
-                        android:src="@drawable/ic_add"
                         android:layout_weight="1"
-                        android:layout_gravity="center"/>
+                        android:contentDescription="@string/add_travel"
+                        android:src="@drawable/ic_add" />
 
                     <TextView
                         android:id="@+id/back_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:text="обратно"
-                        android:textStyle="italic"
-                        android:textSize="16dp"
-                        android:textColor="@color/white"
                         android:layout_gravity="center"
-                        android:layout_weight="5"/>
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="5"
+                        android:text="обратно"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/label_height"
                 android:layout_marginTop="10dp"
@@ -79,69 +76,66 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
                     android:orientation="horizontal"
                     android:paddingStart="6dp"
-                    android:paddingEnd="6dp"
-                    android:layout_gravity="center|center_horizontal">
+                    android:paddingEnd="6dp">
 
                     <TextView
                         android:id="@+id/date_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:layout_marginStart="6dp"
-                        android:text="24 фев, сб"
-                        android:textSize="16dp"
-                        android:textColor="@color/white"
                         android:layout_gravity="center"
-                        android:layout_weight="5"/>
+                        android:layout_marginStart="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="5"
+                        android:text="24 фев, сб"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/label_height"
-                android:layout_marginEnd="@dimen/label_margin_end"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/label_margin_end"
                 app:cardBackgroundColor="@color/gray3"
                 app:cardCornerRadius="35dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
                     android:orientation="horizontal"
                     android:paddingStart="6dp"
-                    android:paddingEnd="6dp"
-                    android:layout_gravity="center|center_horizontal">
+                    android:paddingEnd="6dp">
 
                     <ImageView
                         android:id="@+id/ticket_count_image"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center"
                         android:layout_marginStart="6dp"
                         android:layout_marginEnd="4dp"
-                        android:src="@drawable/ic_avatar"
                         android:layout_weight="1"
-                        android:layout_gravity="center"/>
+                        android:contentDescription="@string/user_icon"
+                        android:src="@drawable/ic_avatar" />
 
                     <TextView
                         android:id="@+id/ticket_count_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:text="1, эконом"
-                        android:textSize="16dp"
-                        android:textColor="@color/white"
                         android:layout_gravity="center"
-                        android:layout_weight="5"/>
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="5"
+                        android:text="1, эконом"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/label_height"
                 android:layout_marginTop="10dp"
@@ -152,31 +146,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
                     android:orientation="horizontal"
                     android:paddingStart="6dp"
-                    android:paddingEnd="6dp"
-                    android:layout_gravity="center|center_horizontal">
+                    android:paddingEnd="6dp">
 
                     <ImageView
                         android:id="@+id/filter_image"
                         android:layout_width="wrap_content"
-                        android:layout_marginStart="6dp"
                         android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="6dp"
                         android:layout_marginEnd="4dp"
-                        android:src="@drawable/ic_settings"
                         android:layout_weight="1"
-                        android:layout_gravity="center"/>
+                        android:contentDescription="@string/settings_icon"
+                        android:src="@drawable/ic_settings" />
 
                     <TextView
                         android:id="@+id/filter_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="6dp"
-                        android:text="фильтр"
-                        android:textSize="16dp"
-                        android:textColor="@color/white"
                         android:layout_gravity="center"
-                        android:layout_weight="5"/>
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="5"
+                        android:text="фильтр"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
@@ -185,19 +180,19 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/proposed_directions"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="18dp"
-        app:cardBackgroundColor="#3E3F43"
-        app:cardCornerRadius="18dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/label_margin_start"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="@dimen/label_margin_end"
+        app:cardBackgroundColor="@color/gray1"
+        app:cardCornerRadius="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/offer_options">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="12dp"
             android:paddingStart="18dp"
             android:paddingEnd="18dp">
@@ -206,12 +201,12 @@
                 android:id="@+id/direct_flights"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Прямые рейсы"
-                android:textSize="22sp"
                 android:textColor="@color/white"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="Прямые рейсы" />
 
             <ProgressBar
                 android:id="@+id/loadingProgressBar"
@@ -236,27 +231,28 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/all_tickets_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="50dp"
         android:layout_marginStart="@dimen/label_margin_start"
-        android:layout_marginEnd="@dimen/label_margin_end"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
+        android:layout_marginEnd="@dimen/label_margin_end"
         android:text="Посмотреть все билеты"
+        android:textColor="@color/white"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/proposed_directions" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        app:cardBackgroundColor="@color/gray3"
         android:layout_marginStart="@dimen/label_margin_start"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/label_margin_end"
-        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@color/gray3"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/all_tickets_button">
@@ -264,30 +260,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
             android:orientation="horizontal"
             android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:layout_gravity="center|center_horizontal">
+            android:paddingEnd="14dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_notify"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:layout_gravity="center"/>
+                android:contentDescription="@string/bell_icon"
+                android:src="@drawable/ic_notify" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="5"
                 android:text="Подписка на цену"
-                android:textSize="18sp"
                 android:textColor="@color/white"
-                android:layout_weight="5"/>
+                android:textSize="18sp" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

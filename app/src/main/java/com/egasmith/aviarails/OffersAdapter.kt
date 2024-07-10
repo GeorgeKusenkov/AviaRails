@@ -8,12 +8,20 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.egasmith.domain.models.offer.Offer
 
-class OffersAdapter(private val offers: List<Offer>): RecyclerView.Adapter<OffersAdapter.OfferViewHolder>() {
+class OffersAdapter(private val offers: List<Offer>) : RecyclerView.Adapter<OffersAdapter.OfferViewHolder>() {
+
     class OfferViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView = itemView.findViewById(R.id.image)
-        val title: TextView = itemView.findViewById(R.id.title_tv)
-        val town: TextView = itemView.findViewById(R.id.town)
-        val price: TextView = itemView.findViewById(R.id.price)
+        private val image: ImageView = itemView.findViewById(R.id.image)
+        private val title: TextView = itemView.findViewById(R.id.title_tv)
+        private val town: TextView = itemView.findViewById(R.id.town)
+        private val price: TextView = itemView.findViewById(R.id.price)
+
+        fun bind(item: Offer) {
+            image.setImageResource(item.image ?: R.drawable.img_offer_default)
+            title.text = item.title
+            town.text = item.town
+            price.text = item.price
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfferViewHolder {
@@ -22,11 +30,7 @@ class OffersAdapter(private val offers: List<Offer>): RecyclerView.Adapter<Offer
     }
 
     override fun onBindViewHolder(holder: OfferViewHolder, position: Int) {
-        val item = offers[position]
-        holder.image.setImageResource(item.image ?: R.drawable.img_offer_default)
-        holder.title.text = item.title
-        holder.town.text = item.town
-        holder.price.text = item.price
+        holder.bind(offers[position])
     }
 
     override fun getItemCount() = offers.size

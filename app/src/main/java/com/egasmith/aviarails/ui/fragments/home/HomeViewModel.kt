@@ -8,10 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.egasmith.aviarails.R
 import com.egasmith.domain.models.offer.Offer
 import com.egasmith.domain.models.offer.OfferResponse
+import com.egasmith.domain.models.ticket.TicketResponse
 import com.egasmith.domain.models.ticketoffers.TicketOffers
 import com.egasmith.domain.models.ticketoffers.TicketOffersResponse
 import com.egasmith.domain.usecases.GetOffersUseCase
 import com.egasmith.domain.usecases.GetTicketOffersUseCase
+import com.egasmith.domain.usecases.GetTicketsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,21 +23,26 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getOffersUseCase: GetOffersUseCase,
-    private val getTicketOffers: GetTicketOffersUseCase
+    private val getTicketOffersUseCase: GetTicketOffersUseCase,
+    private val getTicketUseCase: GetTicketsUseCase
 ): ViewModel() {
 
     private val _ticketOffers = MutableStateFlow<TicketOffersViewState>(value = TicketOffersViewState.Loading)
     val ticketOffers: StateFlow<TicketOffersViewState> = _ticketOffers
 
-    private val _offers = MutableStateFlow<TicketsViewState>(value = TicketsViewState.Loading)
-    val offers: StateFlow<TicketsViewState> = _offers
+    private val _offers = MutableStateFlow<OffersViewState>(value = OffersViewState.Loading)
+    val offers: StateFlow<OffersViewState> = _offers
+
+    private val _tickets = MutableStateFlow<TicketsViewState>(value = TicketsViewState.Loading)
+    val tickets: StateFlow<TicketsViewState> = _tickets
 
     private val _recommendedCity = MutableLiveData<String>()
     val recommendedCity: LiveData<String> = _recommendedCity
 
     init {
-        fetchTicketsOffers()
         fetchTickets()
+        fetchTicketsOffers()
+        fetchOffers()
     }
 
     private var _text = MutableLiveData<String>().apply {
@@ -44,15 +51,27 @@ class HomeViewModel @Inject constructor(
     val text: LiveData<String> = _text
 
 
-    fun fetchTickets() = viewModelScope.launch {
-        _offers.value = TicketsViewState.Loading
+    fun  fetchTickets() = viewModelScope.launch {
+        _tickets.value = TicketsViewState.Loading
+        getTicketUseCase().collect { result ->
+            _tickets.value = result.fold(
+                onSuccess = {response ->
+                    TicketsViewState.Success(TicketResponse(response.ticket))
+                },
+                onFailure = { TicketsViewState.Error(it.message ?: "Unknown error") }
+            )
+        }
+    }
+
+    fun fetchOffers() = viewModelScope.launch {
+        _offers.value = OffersViewState.Loading
         getOffersUseCase().collect { result ->
             _offers.value = result.fold(
                 onSuccess = { response ->
                     val offersWithImages = addImagesToOffers(response.offers)
-                    TicketsViewState.Success(OfferResponse(offersWithImages))
+                    OffersViewState.Success(OfferResponse(offersWithImages))
                 },
-                onFailure = { TicketsViewState.Error(it.message ?: "Unknown error") }
+                onFailure = { OffersViewState.Error(it.message ?: "Unknown error") }
             )
         }
     }
@@ -62,7 +81,7 @@ class HomeViewModel @Inject constructor(
 
         Log.d("showOffers3", "1: ${_ticketOffers.value}")
 
-        getTicketOffers().collect { result ->
+        getTicketOffersUseCase().collect { result ->
             _ticketOffers.value = result.fold(
                 onSuccess = { response ->
                     Log.d("showOffers3", "2: $response")
@@ -109,7 +128,13 @@ private fun addCirclesToOffersTickets(ticketOffers: List<TicketOffers>): List<Ti
 sealed interface TicketsViewState {
     data object Loading : TicketsViewState
     data class Error(val message: String) : TicketsViewState
-    data class Success(val offerInfo: OfferResponse) : TicketsViewState
+    data class Success(val offerInfo: TicketResponse) : TicketsViewState
+}
+
+sealed interface OffersViewState {
+    data object Loading : OffersViewState
+    data class Error(val message: String) : OffersViewState
+    data class Success(val offerInfo: OfferResponse) : OffersViewState
 }
 
 sealed interface TicketOffersViewState {
