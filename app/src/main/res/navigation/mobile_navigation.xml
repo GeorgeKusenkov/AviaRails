@@ -10,6 +10,14 @@
         android:name="com.egasmith.aviarails.ui.fragments.home.HomeFragment"
         android:label="@string/tickets"
         tools:layout="@layout/fragment_home">
+        <argument
+            android:name="fromAllTickets"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="fromSearchMenu"
+            app:argType="boolean"
+            android:defaultValue="false" />
         <action
             android:id="@+id/action_navigation_home_to_weekendsFragment"
             app:destination="@id/weekendsFragment" />
@@ -26,7 +34,6 @@
             android:id="@+id/action_navigation_home_to_allTicketsFragment"
             app:destination="@id/allTicketsFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/hotels_fragment"
         android:name="com.egasmith.aviarails.ui.fragments.HotelsFragment"
@@ -47,38 +54,65 @@
         android:name="com.egasmith.aviarails.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
-
     <fragment
         android:id="@+id/searchMenuFragment"
         android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.SearchMenuFragment">
-
     </fragment>
-
     <fragment
         android:id="@+id/anywhereFragment"
         android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.AnywhereFragment"
-        android:label="fragment_anythere"
-        tools:layout="@layout/fragment_anythere" />
+        android:label="fragment_anywhere"
+        tools:layout="@layout/fragment_anythere" >
+        <action
+            android:id="@+id/action_anywhereFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/difficultRoutesFragment"
         android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.DifficultRoutesFragment"
         android:label="fragment_difficult_routes"
-        tools:layout="@layout/fragment_difficult_routes" />
+        tools:layout="@layout/fragment_difficult_routes" >
+        <action
+            android:id="@+id/action_difficultRoutesFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/hotTicketsFragment"
         android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.HotTicketsFragment"
         android:label="fragment_hot_tickets"
-        tools:layout="@layout/fragment_hot_tickets" />
+        tools:layout="@layout/fragment_hot_tickets" >
+        <action
+            android:id="@+id/action_hotTicketsFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/weekendsFragment"
         android:name="com.egasmith.aviarails.ui.fragments.home.searchmenu.WeekendsFragment"
         android:label="fragment_weekends"
-        tools:layout="@layout/fragment_weekends" />
+        tools:layout="@layout/fragment_weekends" >
+        <action
+            android:id="@+id/action_weekendsFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/allTicketsFragment"
         android:name="com.egasmith.aviarails.ui.fragments.home.alltickets.AllTicketsFragment"
         android:label="fragment_all_tickets"
-        tools:layout="@layout/fragment_all_tickets" />
+        tools:layout="@layout/fragment_all_tickets" >
+        <action
+            android:id="@+id/action_allTicketsFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/flightOfferFragment"
         android:name="com.egasmith.aviarails.ui.fragments.home.flightoffermenu.FlightOfferFragment"

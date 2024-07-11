@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.ksp)
+
 }
 
 android {
@@ -38,6 +39,8 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+
 }
 
 dependencies {
@@ -46,6 +49,7 @@ dependencies {
     implementation(project(":api"))
     implementation(project(":di"))
 
+    implementation ("com.jakewharton.threetenabp:threetenabp:1.4.7")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

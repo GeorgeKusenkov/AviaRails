@@ -1,11 +1,14 @@
 package com.egasmith.aviarails.ui.fragments.home.flightoffermenu
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,8 +21,11 @@ import com.egasmith.aviarails.ui.features.ViewStateHandler
 import com.egasmith.aviarails.ui.fragments.home.HomeViewModel
 import com.egasmith.aviarails.ui.fragments.home.TicketOffersViewState
 import com.egasmith.domain.models.ticketoffers.TicketOffers
+import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.threeten.bp.Instant
+import org.threeten.bp.ZoneId
 
 @AndroidEntryPoint
 class FlightOfferFragment : Fragment() {
@@ -43,6 +49,10 @@ class FlightOfferFragment : Fragment() {
         setOnClickListeners()
         setupViewStateHandler()
         observeOffers()
+        setupDatePicker()
+        observeSelectedDate()
+        setupCounterPicker()
+        observeSelectedCounter()
     }
 
     private fun setOnClickListeners() {
@@ -82,6 +92,69 @@ class FlightOfferFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun setupCounterPicker() {
+        binding.countOfPeople.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Выберите количество")
+
+            val input = EditText(requireContext())
+            input.inputType = InputType.TYPE_CLASS_NUMBER
+            builder.setView(input)
+
+            builder.setPositiveButton("OK") { _, _ ->
+                val count = input.text.toString().toIntOrNull() ?: 0
+                homeViewModel.updateSelectedCounter(count)
+            }
+            builder.setNegativeButton("Отмена") { dialog, _ -> dialog.cancel() }
+
+            builder.show()
+        }
+    }
+
+    private fun setupDatePicker() {
+        binding.flyingDate.setOnClickListener {
+            val datePickerDialog = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Выберете дату")
+                .setTheme(R.style.CustomDatePickerTheme)
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
+
+            datePickerDialog.addOnPositiveButtonClickListener { selection ->
+                val selectedDate = Instant.ofEpochMilli(selection)
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate()
+                homeViewModel.updateSelectedDate(selectedDate)
+            }
+
+            datePickerDialog.show(childFragmentManager, "DATE_PICKER")
+        }
+
+        binding.backLabel.setOnClickListener {
+            val datePickerDialog = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Когда обратно, пёс?")
+                .setPositiveButtonText("Уже никогда")
+                .setNegativeButtonText("А надо?")
+                .setTheme(R.style.CustomDatePickerTheme)
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build()
+            datePickerDialog.show(childFragmentManager, "DATE_CHECKER")
+        }
+
+
+    }
+
+    private fun observeSelectedCounter() {
+        homeViewModel.selectedCounter.observe(viewLifecycleOwner) { count ->
+            binding.ticketCountText.text = homeViewModel.getFormattedCounter()
+        }
+    }
+
+    private fun observeSelectedDate() {
+        homeViewModel.selectedDate.observe(viewLifecycleOwner) { date ->
+            binding.dateText.text = homeViewModel.getFormattedDate()
         }
     }
 

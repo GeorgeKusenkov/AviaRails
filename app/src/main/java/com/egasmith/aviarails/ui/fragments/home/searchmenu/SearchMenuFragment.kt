@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.egasmith.aviarails.R
 import com.egasmith.aviarails.databinding.FragmentSearchMenuBinding
+import com.egasmith.aviarails.ui.fragments.home.HomeFragment
 import com.egasmith.aviarails.ui.fragments.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,18 +30,20 @@ class SearchMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.sochiImg.setOnClickListener{
+        binding.sochiImg.setOnClickListener {
             homeViewModel.setRecommendedCity("Сочи")
+            updateParentEndCity("Сочи")
         }
 
-        binding.phuketImg.setOnClickListener{
+        binding.phuketImg.setOnClickListener {
             homeViewModel.setRecommendedCity("Пхукет")
+            updateParentEndCity("Пхукет")
         }
 
-        binding.stambulImage.setOnClickListener{
+        binding.stambulImage.setOnClickListener {
             homeViewModel.setRecommendedCity("Стамбул")
+            updateParentEndCity("Стамбул")
         }
-
 
         binding.iconDifficultRoute.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_difficultRoutesFragment)
@@ -57,6 +60,10 @@ class SearchMenuFragment : Fragment() {
         binding.iconHotTickets.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_hotTicketsFragment)
         }
+    }
+
+    private fun updateParentEndCity(city: String) {
+        (parentFragment as? HomeFragment)?.updateEndCity(city)
     }
 
     override fun onDestroyView() {

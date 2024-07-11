@@ -25,6 +25,7 @@
                 android:layout_height="1dp" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/back_label"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/label_height"
                 android:layout_marginStart="@dimen/label_margin_start"
@@ -66,6 +67,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/flying_date"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/label_height"
                 android:layout_marginTop="10dp"
@@ -96,6 +98,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/count_of_people"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/label_height"
                 android:layout_marginTop="10dp"

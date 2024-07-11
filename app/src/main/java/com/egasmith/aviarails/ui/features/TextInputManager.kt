@@ -1,6 +1,7 @@
 package com.egasmith.aviarails.ui.features
 
 import android.content.Context
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -11,7 +12,15 @@ class TextInputManager(private val startCity: TextInputEditText, private val end
     private var endCityFilled = false
 
     fun onStartCityTextChanged(text: String) {
-        startCityFilled = text.isNotEmpty()
+         if (containsOnlyCyrillic(text)) {
+            startCityFilled = text.isNotEmpty()
+        } else {
+            startCityFilled = false
+            if (text.isNotEmpty()) {
+                startCity.setText("")
+                Toast.makeText(startCity.context, "Пожалуйста, используйте только кириллицу", Toast.LENGTH_SHORT).show()
+            }
+        }
         updateImeOptions()
     }
 
@@ -30,7 +39,7 @@ class TextInputManager(private val startCity: TextInputEditText, private val end
 
     fun areFieldsFilled() = startCityFilled && endCityFilled
 
-    fun updateImeOptions() {
+    private fun updateImeOptions() {
         val imeOptions = if (areFieldsFilled()) EditorInfo.IME_ACTION_DONE else EditorInfo.IME_ACTION_NEXT
         startCity.imeOptions = imeOptions
         endCity.imeOptions = imeOptions

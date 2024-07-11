@@ -1,14 +1,13 @@
 package com.egasmith.aviarails.ui.fragments.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.egasmith.aviarails.R
 import com.egasmith.domain.models.offer.Offer
 import com.egasmith.domain.models.offer.OfferResponse
-import com.egasmith.domain.models.ticket.TicketResponse
 import com.egasmith.domain.models.ticketoffers.TicketOffers
 import com.egasmith.domain.models.ticketoffers.TicketOffersResponse
 import com.egasmith.domain.models.uiticket.UITicketResponse
@@ -19,6 +18,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,10 +42,30 @@ class HomeViewModel @Inject constructor(
     private val _recommendedCity = MutableLiveData<String>()
     val recommendedCity: LiveData<String> = _recommendedCity
 
+    private val _startCityText = MutableLiveData("")
+    val startCityText: LiveData<String> get() = _startCityText
+
+    private val _endCityText = MutableLiveData("")
+    val endCityText: LiveData<String> get() = _endCityText
+
+    private val _backState = MutableLiveData<String>()
+    val backState: LiveData<String> get() = _backState
+
+    private val _selectedDate = MutableLiveData<LocalDate>()
+    val selectedDate: LiveData<LocalDate> = _selectedDate
+
+    private val _selectedCounter = MutableLiveData<Int>()
+    val selectedCounter: LiveData<Int> = _selectedCounter
+
+    private val _flyInfo = MediatorLiveData<String>().apply {
+        addSource(_selectedCounter) { value = getFormattedFlyInfo() }
+        addSource(_selectedDate) { value = getFormattedFlyInfo() }
+    }
+    val flyInfo: LiveData<String> get() = _flyInfo
+
+
     init {
-        fetchTickets()
-        fetchTicketsOffers()
-        fetchOffers()
+       _selectedDate.value = LocalDate.now()
     }
 
     private var _text = MutableLiveData<String>().apply {
@@ -51,8 +73,13 @@ class HomeViewModel @Inject constructor(
     }
     val text: LiveData<String> = _text
 
+    private fun getFormattedFlyInfo(): String {
+        val text1 = getFormattedCounter()
+        val text2 = getFormattedDate()
+        return "$text1, $text2"
+    }
 
-    fun  fetchTickets() = viewModelScope.launch {
+    fun fetchTickets() = viewModelScope.launch {
         _tickets.value = TicketsViewState.Loading
         getTicketUseCase().collect { result ->
             _tickets.value = result.fold(
@@ -95,8 +122,44 @@ class HomeViewModel @Inject constructor(
     }
 
     fun cleanEndCity() {
+        _endCityText.value = ""
         _recommendedCity.value = ""
     }
+
+    fun updateCityTexts(startCity: String, endCity: String) {
+        _startCityText.value = startCity
+        _endCityText.value = endCity
+    }
+
+    fun setBackState(backFragment:String) {
+        _backState.value = backFragment
+    }
+
+    fun updateSelectedDate(date: LocalDate) {
+        _selectedDate.value = date
+    }
+
+    fun getFormattedDate(): String {
+        val date = _selectedDate.value ?: LocalDate.now()
+        val russianLocale = Locale("ru", "RU")
+        return date.format(DateTimeFormatter.ofPattern("dd MMM EE", russianLocale))
+    }
+
+    fun updateSelectedCounter(count: Int) {
+        _selectedCounter.value = count
+    }
+
+    fun getFormattedCounter(): String {
+        val counter = _selectedCounter.value ?: 1
+        return "$counter, эконом"
+    }
+
+    fun getFlyInfoText(): String {
+        val counterText = getFormattedCounter()
+        val dateText = getFormattedDate()
+        return "$counterText, $dateText"
+    }
+
 }
 
 private fun addImagesToOffers(offers: List<Offer>): List<Offer> {

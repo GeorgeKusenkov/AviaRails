@@ -22,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
+            android:id="@+id/back_button"
             android:layout_width="42dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -41,6 +42,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/from_to_city"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:text = "Москва-Сочи"
@@ -51,6 +53,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/fly_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/gray5"
